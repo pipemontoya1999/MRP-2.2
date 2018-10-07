@@ -20,6 +20,7 @@ public class Proceso {
    private final ConexionDB conexionDB;
    private final Connection conexion;
    private String Nombre;
+   private float duracionP;
 
     public Proceso() {
         this.conexionDB = new ConexionDB();
@@ -47,27 +48,14 @@ public class Proceso {
     
     }
 
-    public int getHoras(int idB,float cantidad, int idP) {
-        float cantidadT = 0;
-        String consulta = "select re.idBebida, mp.idProceso, re.idInvMP, cantidad from receta re, MateriaPrima mp "
-                + "where re.idInvMP = mp.idInvMP and idBebida="+idB+" and idProceso ="+idP+" group by re.idInvMP";
-       try {
-           PreparedStatement ps = conexion.prepareStatement(consulta);
-           ResultSet rs = ps.executeQuery();
-           while(rs.next()){
-           cantidadT = cantidadT + rs.getFloat(4);
-           }
-           cantidadT = cantidadT*cantidad;
-            System.out.println(cantidadT);
-       } catch (SQLException ex) {
-           Logger.getLogger(Proceso.class.getName()).log(Level.SEVERE, null, ex);
-       }
+    public int getHoras(int idB,float cantidadMP, int idP) {
+
        float capacidadM = getCapacidad(idP);
-       float division = cantidadT/capacidadM;
-        int Horas = Math.round(division);
-        if (Horas == 0){
-        Horas =1;
-        }
+       float division = cantidadMP/capacidadM;
+       int cargas = (int) Math.ceil(division);
+       float duracion = getDuracionP(idP);
+       
+       int Horas = (int) (cargas*duracion);
         System.out.println(Horas);
         
         return Horas;
@@ -103,4 +91,41 @@ public class Proceso {
        return Nombre;
       
     }
+
+    private float getDuracionP(int idP) {
+    String consulta = "select idProceso,duracion from proceso where idProceso="+idP;
+       try {
+          
+          PreparedStatement ps= conexion.prepareStatement(consulta);
+          ResultSet rs = ps.executeQuery();
+          while(rs.next()){
+         duracionP = rs.getFloat(2);
+          }
+       } catch (SQLException ex) {
+           Logger.getLogger(Proceso.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       
+      return duracionP; 
+    }
+    
+    
+    public float getCantidadMP(int idB,float cantidad, int idP){
+            float cantidadT = 0;
+        String consulta = "select re.idBebida, mp.idProceso, re.idInvMP, cantidad from receta re, MateriaPrima mp "
+                + "where re.idInvMP = mp.idInvMP and idBebida="+idB+" and idProceso ="+idP+" group by re.idInvMP";
+       try {
+           PreparedStatement ps = conexion.prepareStatement(consulta);
+           ResultSet rs = ps.executeQuery();
+           while(rs.next()){
+           cantidadT = cantidadT + rs.getFloat(4);
+           }
+           cantidadT = cantidadT*cantidad;
+            System.out.println(cantidadT);
+       } catch (SQLException ex) {
+           Logger.getLogger(Proceso.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return cantidadT;
+    }
+
+
 }

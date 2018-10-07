@@ -14,11 +14,15 @@ public class Macerado {
     private int fila = 0;
     private int columna;
     private String Nombre;
+    private float cantidadPT;
+    private int filaIn = 0;
 
-    public Macerado(int fila, int columna, String Nombre) {
+    public Macerado(int fila, int columna, String Nombre, float cantidadPT, int filaIn) {
         this.fila = fila;
         this.columna = columna;
         this.Nombre = Nombre;
+        this.cantidadPT = cantidadPT;
+        this.filaIn = filaIn;
     }
 
     public Macerado() {
@@ -46,6 +50,22 @@ public class Macerado {
 
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
+    }
+
+    public float getCantidadPT() {
+        return cantidadPT;
+    }
+
+    public void setCantidadPT(float cantidadPT) {
+        this.cantidadPT = cantidadPT;
+    }
+
+    public int getFilaIn() {
+        return filaIn;
+    }
+
+    public void setFilaIn(int filaIn) {
+        this.filaIn = filaIn;
     }
 
 

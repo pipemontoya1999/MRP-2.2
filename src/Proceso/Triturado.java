@@ -9,13 +9,17 @@ package Proceso;
 public class Triturado {
     
     private int fila = 0;
-    private int columna;
+    private int columna = 1 ;
     private String Nombre;
+    private float cantidadPT;
+    
 
-    public Triturado(int fila, int columna, String Nombre) {
+    public Triturado(int fila, int columna, String Nombre, float cantidadPT ) {
         this.fila = fila;
         this.columna = columna;
         this.Nombre = Nombre;
+        this.cantidadPT = cantidadPT;
+       
     }
 
     public Triturado() {
@@ -43,6 +47,14 @@ public class Triturado {
 
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
+    }
+
+    public float getCantidadPT() {
+        return cantidadPT;
+    }
+
+    public void setCantidadPT(float cantidadPT) {
+        this.cantidadPT = cantidadPT;
     }
 
 

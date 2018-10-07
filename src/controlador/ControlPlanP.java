@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import Proceso.Aclarado;
 import Proceso.Macerado;
 import Proceso.Triturado;
 import java.util.ArrayList;
@@ -27,8 +28,12 @@ public class ControlPlanP {
     private float costoAcumulado = 0;
     
     private int columna=1;
+    private int filaIn = 0;
     private String nombre = "";
     
+    
+    // creacion de los procesos para guardar la posicion en la tabla
+    private Aclarado aclarado = new Aclarado();
     private Macerado macerado = new Macerado();
     private Triturado triturado = new Triturado();
 
@@ -46,11 +51,12 @@ public class ControlPlanP {
             for(int i=0;i<idBebidas.size();i++){
             int bebida = idBebidas.get(i);
             float cantidad = beCantidad.get(i);
-            triturar(bebida,1,cantidad);
-            macerar(bebida,1,cantidad);
+           triturar(bebida,1,cantidad);
+           
+           macerar(bebida,2,cantidad);
             
             }
-//triturar(1,1,2500);
+//triturar(2,1,250);
         
         }
  
@@ -58,38 +64,37 @@ public class ControlPlanP {
 
 
     private void triturar(int idbebida, int idproceso, float cantidad) {
-        if(proceso.comprobar(idbebida, idproceso)){      
+        if(proceso.comprobar(idbebida, idproceso)){ // comprueba si la bebida pertenece al proceso     
           int fila= triturado.getFila();
-          int Horas = proceso.getHoras(idbebida,cantidad,idproceso);
+          float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+          
+          int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
           for (int i=0;i<Horas;i++){
           fila = fila+1;
           columna = idproceso;
           nombre = proceso.getBebida(idbebida);
-          //System.out.println(fila);
+          System.out.println(Horas);
           añadirTabla(fila-1,1,nombre);
           }
-           
+          filaIn = fila;
           triturado.setFila(fila);
           triturado.setColumna(columna);
           triturado.setNombre(nombre);
-          System.out.println("queee"+triturado.getFila());
-        } else {
-            
-        }
-    }
-
-    private void añadirTabla(int fila, int columna, String nombre) {
-            
-            tabla = tablaPP.getjTable1();
-            tabla.setValueAt(nombre, fila, columna);
-
+          triturado.setCantidadPT(cantidadMP);
+          
+        } else {}
     }
 
     private void macerar(int idbebida, int idproceso, float cantidad) {
- if(proceso.comprobar(idbebida, idproceso)){   
+        if(proceso.comprobar(idbebida, idproceso)){ // comprueba si la bebida pertenece al proceso     
+             if(idbebida == 1){    
           macerado.setFila(triturado.getFila());
+             }
           int fila= macerado.getFila();
-          int Horas = proceso.getHoras(idbebida,cantidad,idproceso);
+          float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+          cantidadMP = cantidadMP + triturado.getCantidadPT();
+          int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
+          
           for (int i=0;i<Horas;i++){
           fila = fila+1;
           columna = idproceso;
@@ -101,11 +106,21 @@ public class ControlPlanP {
           macerado.setFila(fila);
           macerado.setColumna(columna);
           macerado.setNombre(nombre);
+          macerado.setCantidadPT(cantidadMP);
           System.out.println("queee"+macerado.getFila());
-        } else {
-            
-        }
+        } else {}
     }
+    
+    
+    private void añadirTabla(int fila, int columna, String nombre) {
+            
+            tabla = tablaPP.getjTable1();
+            tabla.setValueAt(nombre, fila, columna);
+
+    }
+
+    
+    
     }
 
 
