@@ -6,6 +6,8 @@ values (1,"Cerveza tipo Lagger","",10), (2,"Cerveza tipo Lagger Light","",10), (
 (7,"Gaseosa sabor limón","",10),(8,"Gaseosa sabor tamarindo","",10),(9,"Gaseosa tipo cola","",10),
 (10,"Gaseosa sabor Naranja","",10);
 
+select idBebida,nombre,Stock from Bebida where idBebida=1;
+
 insert into Demanda (idDemanda,idBebida,demanda,fecha)
 values
 (1,1,2000,"2019-01-20"),
@@ -32,6 +34,19 @@ values
 (19,9,3000,"2019-02-20"),
 (20,10,3000,"2019-02-20");
 
+
+insert into Demanda (idDemanda,idBebida,demanda,fecha)
+values
+(21,1,300,"2019-03-20"),
+(22,2,300,"2019-03-20"),
+(23,3,300,"2019-03-20"),
+(24,4,300,"2019-03-20"),
+(25,5,300,"2019-03-20"),
+(26,6,300,"2019-03-20"),
+(27,7,300,"2019-03-20"),
+(28,8,300,"2019-03-20"),
+(29,9,300,"2019-03-20"),
+(30,10,300,"2019-03-20");
 
 
 insert into OrdenProduccion(fecha,descripcion)
