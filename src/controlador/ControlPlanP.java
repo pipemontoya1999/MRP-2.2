@@ -37,11 +37,14 @@ public class ControlPlanP {
     private Macerado macerado = new Macerado();
     private Triturado triturado = new Triturado();
 
+    
+    //constructor
     public ControlPlanP(TablaPlanP tablaPP, ArrayList<Integer> idBebidas, ArrayList<Float> beCantidad) {
         this.tablaPP = tablaPP;
         this.idBebidas = idBebidas;
         this.beCantidad=beCantidad;
         this.proceso=new Proceso();
+        
         iniciar();
     }
     
@@ -50,13 +53,15 @@ public class ControlPlanP {
         else{
             for(int i=0;i<idBebidas.size();i++){
             int bebida = idBebidas.get(i);
-            float cantidad = beCantidad.get(i);
-           triturar(bebida,1,cantidad);
-           
+            float cantidad = beCantidad.get(i); 
+          triturar(bebida,1,cantidad);          
            macerar(bebida,2,cantidad);
+           aclarar(bebida,3,cantidad);
             
             }
-//triturar(2,1,250);
+//triturar(1,1,250);
+//macerar(1,2,6);
+//aclarar(1,3,6);
         
         }
  
@@ -101,13 +106,38 @@ public class ControlPlanP {
           nombre = proceso.getBebida(idbebida);
           //System.out.println(fila);
           añadirTabla(fila-1,2,nombre);
-          }
-           
+          }         
           macerado.setFila(fila);
           macerado.setColumna(columna);
           macerado.setNombre(nombre);
           macerado.setCantidadPT(cantidadMP);
-          System.out.println("queee"+macerado.getFila());
+          
+        } else {}
+    }
+    
+    
+        private void aclarar(int idbebida, int idproceso, float cantidad) {
+        if(proceso.comprobar(idbebida, idproceso)){ // comprueba si la bebida pertenece al proceso     
+             if(idbebida == 1){    
+          aclarado.setFila(macerado.getFila());
+             }
+          int fila= aclarado.getFila();
+          float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+          cantidadMP = cantidadMP + macerado.getCantidadPT();
+          System.out.println("el problema es"+cantidadMP);
+          int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
+          System.out.println("el problema es"+Horas);
+          for (int i=0;i<Horas;i++){
+          fila = fila+1;
+          columna = idproceso;
+          nombre = proceso.getBebida(idbebida);
+          
+          añadirTabla(fila-1,3,nombre);
+          }         
+          aclarado.setFila(fila);
+          aclarado.setColumna(columna);
+          aclarado.setNombre(nombre);
+          aclarado.setCantidadPT(cantidadMP);
         } else {}
     }
     

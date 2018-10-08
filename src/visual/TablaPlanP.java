@@ -5,6 +5,7 @@
  */
 package visual;
 
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 /**
@@ -29,8 +30,22 @@ public class TablaPlanP extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        setAutoscrolls(true);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -45,35 +60,84 @@ public class TablaPlanP extends javax.swing.JPanel {
                 {"9:00 am", null, null, null, null, null, null, null, null, null},
                 {"10:00 am", null, null, null, null, null, null, null, null, null},
                 {"11:00 am", null, null, null, null, null, null, null, null, null},
-                {"12:00 am", null, null, null, null, null, null, null, null, null},
-                {"13:00 am", null, null, null, null, null, null, null, null, null},
-                {"14:00 am", null, null, null, null, null, null, null, null, null},
-                {"15:00 am", null, null, null, null, null, null, null, null, null},
-                {"16:00 am", null, null, null, null, null, null, null, null, null},
-                {"17:00 am", null, null, null, null, null, null, null, null, null},
-                {"18:00 am", null, null, null, null, null, null, null, null, null},
-                {"19:00 am", null, null, null, null, null, null, null, null, null},
-                {"20:00 am", null, null, null, null, null, null, null, null, null},
-                {"21:00 am", null, null, null, null, null, null, null, null, null},
-                {"22:00 am", null, null, null, null, null, null, null, null, null},
-                {"23:00 am", null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {"12:00 pm", null, null, null, null, null, null, null, null, null},
+                {"13:00 pm", null, null, null, null, null, null, null, null, null},
+                {"14:00 pm", null, null, null, null, null, null, null, null, null},
+                {"15:00 pm", null, null, null, null, null, null, null, null, null},
+                {"16:00 pm", null, null, null, null, null, null, null, null, null},
+                {"17:00 pm", null, null, null, null, null, null, null, null, null},
+                {"18:00 pm", null, null, null, null, null, null, null, null, null},
+                {"19:00 pm", null, null, null, null, null, null, null, null, null},
+                {"20:00 pm", null, null, null, null, null, null, null, null, null},
+                {"21:00 pm", null, null, null, null, null, null, null, null, null},
+                {"22:00 pm", null, null, null, null, null, null, null, null, null},
+                {"23:00 pm", null, null, null, null, null, null, null, null, null},
+                {"24:00 pm", null, null, null, null, null, null, null, null, null},
+                {"1:00 am", null, null, null, null, null, null, null, null, null},
+                {"2:00 am", null, null, null, null, null, null, null, null, null},
+                {"3:00 am", null, null, null, null, null, null, null, null, null},
+                {"4:00 am", null, null, null, null, null, null, null, null, null},
+                {"5:00 am", null, null, null, null, null, null, null, null, null},
+                {"6:00 am", null, null, null, null, null, null, null, null, null},
+                {"7:00 am", null, null, null, null, null, null, null, null, null},
+                {"8:00 am", null, null, null, null, null, null, null, null, null},
+                {"9:00 am", null, null, null, null, null, null, null, null, null},
+                {"10:00 am", null, null, null, null, null, null, null, null, null},
+                {"11:00 am", null, null, null, null, null, null, null, null, null},
+                {"12:00 pm", null, null, null, null, null, null, null, null, null},
+                {"13:00 pm", null, null, null, null, null, null, null, null, null},
+                {"14:00 pm", null, null, null, null, null, null, null, null, null},
+                {"15:00 pm", null, null, null, null, null, null, null, null, null},
+                {"16:00 pm", null, null, null, null, null, null, null, null, null},
+                {"17:00 pm", null, null, null, null, null, null, null, null, null},
+                {"18:00 pm", null, null, null, null, null, null, null, null, null},
+                {"19:00 pm", null, null, null, null, null, null, null, null, null},
+                {"20:00 pm", null, null, null, null, null, null, null, null, null},
+                {"21:00 pm", null, null, null, null, null, null, null, null, null},
+                {"22:00 pm", null, null, null, null, null, null, null, null, null},
+                {"23:00 pm", null, null, null, null, null, null, null, null, null},
+                {"24:00 pm", null, null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "Hora", "Triturado de malta", "Macerado", "Filtrado y aclarado", "Fermentación", "Maduración", "Filtración", "Mezclado", "Gasificación", "Embotellado"
             }
         ));
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable1.setMinimumSize(new java.awt.Dimension(950, 400));
+        jTable1.setPreferredSize(new java.awt.Dimension(1500, 1000));
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(50);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(1).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(2).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(3).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(4).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(5).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(6).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(7).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(7).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(8).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(8).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(9).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(9).setPreferredWidth(150);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 965, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 990, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -85,7 +149,17 @@ public class TablaPlanP extends javax.swing.JPanel {
         this.jTable1 = jTable1;
     }
 
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

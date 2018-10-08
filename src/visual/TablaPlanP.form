@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="autoscrolls" type="boolean" value="true"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -16,12 +36,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane1" alignment="0" pref="965" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="0" pref="990" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane1" alignment="0" pref="344" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="0" pref="372" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -35,98 +55,69 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="jTable1">
           <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="10" rowCount="24">
-                <Column editable="true" title="Hora" type="java.lang.Object">
-                  <Data value="1:00 am"/>
-                  <Data value="2:00 am"/>
-                  <Data value="3:00 am"/>
-                  <Data value="4:00 am"/>
-                  <Data value="5:00 am"/>
-                  <Data value="6:00 am"/>
-                  <Data value="7:00 am"/>
-                  <Data value="8:00 am"/>
-                  <Data value="9:00 am"/>
-                  <Data value="10:00 am"/>
-                  <Data value="11:00 am"/>
-                  <Data value="12:00 am"/>
-                  <Data value="13:00 am"/>
-                  <Data value="14:00 am"/>
-                  <Data value="15:00 am"/>
-                  <Data value="16:00 am"/>
-                  <Data value="17:00 am"/>
-                  <Data value="18:00 am"/>
-                  <Data value="19:00 am"/>
-                  <Data value="20:00 am"/>
-                  <Data value="21:00 am"/>
-                  <Data value="22:00 am"/>
-                  <Data value="23:00 am"/>
-                  <Data value="null"/>
-                </Column>
-                <Column editable="true" title="Triturado de malta" type="java.lang.Object"/>
-                <Column editable="true" title="Macerado" type="java.lang.Object"/>
-                <Column editable="true" title="Filtrado y aclarado" type="java.lang.Object"/>
-                <Column editable="true" title="Fermentaci&#xf3;n" type="java.lang.Object"/>
-                <Column editable="true" title="Maduraci&#xf3;n" type="java.lang.Object"/>
-                <Column editable="true" title="Filtraci&#xf3;n" type="java.lang.Object"/>
-                <Column editable="true" title="Mezclado" type="java.lang.Object"/>
-                <Column editable="true" title="Gasificaci&#xf3;n" type="java.lang.Object"/>
-                <Column editable="true" title="Embotellado" type="java.lang.Object"/>
-              </Table>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;        {&quot;1:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;2:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;3:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;4:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;5:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;6:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;7:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;8:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;9:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;10:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;11:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;12:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;13:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;14:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;15:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;16:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;17:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;18:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;19:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;20:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;21:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;22:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;23:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;24:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;1:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;2:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;3:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;4:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;5:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;6:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;7:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;8:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;9:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;10:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;11:00 am&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;12:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;13:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;14:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;15:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;16:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;17:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;18:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;19:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;20:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;21:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;22:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;23:00 pm&quot;, null, null, null, null, null, null, null, null, null},&#xa;        {&quot;24:00 pm&quot;, null, null, null, null, null, null, null, null, null}&#xa;    },&#xa;    new String [] {&#xa;        &quot;Hora&quot;, &quot;Triturado de malta&quot;, &quot;Macerado&quot;, &quot;Filtrado y aclarado&quot;, &quot;Fermentaci&#xf3;n&quot;, &quot;Maduraci&#xf3;n&quot;, &quot;Filtraci&#xf3;n&quot;, &quot;Mezclado&quot;, &quot;Gasificaci&#xf3;n&quot;, &quot;Embotellado&quot;&#xa;    }&#xa;)" type="code"/>
             </Property>
+            <Property name="autoResizeMode" type="int" value="0"/>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="50" prefWidth="60" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="100" prefWidth="150" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="100" prefWidth="150" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="100" prefWidth="150" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="100" prefWidth="150" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="100" prefWidth="150" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="100" prefWidth="150" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="100" prefWidth="150" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="100" prefWidth="150" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="100" prefWidth="150" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
               </TableColumnModel>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[950, 400]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[1500, 1000]"/>
             </Property>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
