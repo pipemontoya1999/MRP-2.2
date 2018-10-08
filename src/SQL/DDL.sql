@@ -108,6 +108,16 @@ create table RecursoHumano(
     foreign key (idProceso) references proceso(idProceso) ON UPDATE CASCADE ON DELETE SET NULL
 )ENGINE=INNODB;
 
+create table InvProdProc(
+idProdProc int not null,
+idProceso int,
+idBebida int,
+nombre varchar(50),
+cantidad float(10),
+foreign key (idProceso) references proceso(idProceso) ON UPDATE CASCADE ON DELETE SET NULL,
+foreign key (idBebida) references bebida(idBebida) ON UPDATE CASCADE ON DELETE SET NULL
+);
+
 
 
 

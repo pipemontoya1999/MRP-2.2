@@ -12,6 +12,9 @@ import controlador.OrdenProduccion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import visual.PanelPrincipal;
 import visual.TablaOrden;
 import visual.TablaPlanP;
@@ -25,6 +28,7 @@ public class Mrp2 {
     /**
      * @param args the command line arguments
      */
+    private static ControlPlanP controlPP;
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         
@@ -37,6 +41,7 @@ public class Mrp2 {
         TablaPlanP tablaPP = new TablaPlanP();
         TablaOrden torden = new TablaOrden();
         
+        
         ControladorPanel controladorPanel = new ControladorPanel(panel,tablaPP,torden);
         controladorPanel.inicializarPestanas();
         ControladorOrden ordenF = new ControladorOrden (torden);
@@ -47,8 +52,8 @@ public class Mrp2 {
                 
        jButton.addActionListener(new ActionListener() { 
         public void actionPerformed(ActionEvent e) {
-           ControlPlanP controlPP = new ControlPlanP(tablaPP,ordenF.getIdBebidas(),ordenF.getBeCantidad());
-         
+            controlPP = new ControlPlanP(tablaPP,ordenF.getIdBebidas(),ordenF.getBeCantidad());
+           
       
       } 
        } );
@@ -84,5 +89,7 @@ public class Mrp2 {
             }
         });
     }
+    
+
     
 }

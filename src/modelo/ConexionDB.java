@@ -10,7 +10,7 @@ public class ConexionDB {
     private  String urlString = "jdbc:mysql://localhost:3306/MRP2?autoReconnect=true&useSSL=false";    
     private  String driverName = "com.mysql.jdbc.Driver";   
     private  String username = "root";   
-    private  String password = "root";
+    private  String password = "goyo";
     private  Connection con;
     
     public ConexionDB() {

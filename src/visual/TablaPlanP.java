@@ -104,7 +104,7 @@ public class TablaPlanP extends javax.swing.JPanel {
         ));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable1.setMinimumSize(new java.awt.Dimension(950, 400));
-        jTable1.setPreferredSize(new java.awt.Dimension(1500, 1000));
+        jTable1.setPreferredSize(new java.awt.Dimension(1420, 1480));
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setMinWidth(50);

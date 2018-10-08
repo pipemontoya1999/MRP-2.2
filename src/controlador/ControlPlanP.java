@@ -6,7 +6,13 @@
 package controlador;
 
 import Proceso.Aclarado;
+import Proceso.Embotellado;
+import Proceso.Fermentado;
+import Proceso.Filtrado;
+import Proceso.Gasificado;
 import Proceso.Macerado;
+import Proceso.Madurado;
+import Proceso.Mezclado;
 import Proceso.Triturado;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -33,9 +39,16 @@ public class ControlPlanP {
     
     
     // creacion de los procesos para guardar la posicion en la tabla
+    private Embotellado embotellado = new Embotellado();
+    private Gasificado gasificado = new Gasificado();
+    private Mezclado mezclado = new Mezclado();
+    private Filtrado filtrado = new Filtrado();
+    private Madurado maduracion = new Madurado();
+    private Fermentado fermentado = new Fermentado();
     private Aclarado aclarado = new Aclarado();
     private Macerado macerado = new Macerado();
     private Triturado triturado = new Triturado();
+    
 
     
     //constructor
@@ -54,10 +67,16 @@ public class ControlPlanP {
             for(int i=0;i<idBebidas.size();i++){
             int bebida = idBebidas.get(i);
             float cantidad = beCantidad.get(i); 
-          triturar(bebida,1,cantidad);          
+          
+            triturar(bebida,1,cantidad);          
            macerar(bebida,2,cantidad);
            aclarar(bebida,3,cantidad);
-            
+           fermentar(bebida,4,cantidad);
+           madurar(bebida,5,cantidad);
+           filtrar(bebida,6,cantidad);
+           mezclar(bebida,7,cantidad);
+           gasificar(bebida,8,cantidad);
+           embotellar(bebida,9,cantidad);
             }
 //triturar(1,1,250);
 //macerar(1,2,6);
@@ -78,7 +97,6 @@ public class ControlPlanP {
           fila = fila+1;
           columna = idproceso;
           nombre = proceso.getBebida(idbebida);
-          System.out.println(Horas);
           añadirTabla(fila-1,1,nombre);
           }
           filaIn = fila;
@@ -97,7 +115,7 @@ public class ControlPlanP {
              }
           int fila= macerado.getFila();
           float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
-          cantidadMP = cantidadMP + triturado.getCantidadPT();
+          cantidadMP = cantidadMP + triturado.getCantidadPT();         
           int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
           
           for (int i=0;i<Horas;i++){
@@ -123,10 +141,8 @@ public class ControlPlanP {
              }
           int fila= aclarado.getFila();
           float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
-          cantidadMP = cantidadMP + macerado.getCantidadPT();
-          System.out.println("el problema es"+cantidadMP);
+          cantidadMP = cantidadMP + macerado.getCantidadPT();          
           int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
-          System.out.println("el problema es"+Horas);
           for (int i=0;i<Horas;i++){
           fila = fila+1;
           columna = idproceso;
@@ -141,7 +157,127 @@ public class ControlPlanP {
         } else {}
     }
     
-    
+        private void fermentar(int idbebida, int idproceso, float cantidad) {
+            if(proceso.comprobar(idbebida, idproceso)){
+                float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);                
+                cantidadMP = aclarado.getCantidadPT() + cantidadMP;            
+                fermentado.setCantidadPT(cantidadMP);           
+            }
+            
+    }
+        
+        private void madurar(int idbebida, int idproceso, float cantidad) {
+           if(proceso.comprobar(idbebida, idproceso)){
+               float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);                
+                cantidadMP = fermentado.getCantidadPT() + cantidadMP;            
+            maduracion.setCantidadPT(cantidadMP);
+           }
+    }
+      private void filtrar(int idbebida, int idproceso, float cantidad) {
+         if(proceso.comprobar(idbebida, idproceso)){
+         if(idbebida == 1){    
+          filtrado.setFila(aclarado.getFila());
+             }
+          int fila= filtrado.getFila();
+          float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+          cantidadMP = cantidadMP + maduracion.getCantidadPT();         
+          int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
+     
+          for (int i=0;i<Horas;i++){
+          fila = fila+1;
+          columna = idproceso;
+          nombre = proceso.getBebida(idbebida);
+          //System.out.println(fila);
+          añadirTabla(fila-1,idproceso,nombre);
+          }         
+          filtrado.setFila(fila);
+          filtrado.setColumna(columna);
+          filtrado.setNombre(nombre);
+          filtrado.setCantidadPT(cantidadMP);
+         } 
+    }
+
+      private void mezclar(int idbebida, int idproceso, float cantidad) {
+         if(proceso.comprobar(idbebida, idproceso)){
+         if(idbebida == 6){    
+          mezclado.setFila(filtrado.getFila());
+             }
+         if(idbebida == 7){mezclado.setFila(0);}
+          int fila= mezclado.getFila();
+          float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+          if(idbebida == 6){
+          cantidadMP = cantidadMP + filtrado.getCantidadPT();          
+          }                            
+          System.out.println(cantidad+" "+nombre+" tiene "+cantidadMP);
+          int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
+           
+          for (int i=0;i<Horas;i++){
+          fila = fila+1;
+          columna = idproceso;
+          nombre = proceso.getBebida(idbebida);
+         añadirTabla(fila-1,idproceso,nombre);
+          
+          }         
+          mezclado.setFila(fila);
+          mezclado.setColumna(columna);
+          mezclado.setNombre(nombre);
+          mezclado.setCantidadPT(cantidadMP);
+         } 
+    }
+
+      private void gasificar(int idbebida, int idproceso, float cantidad) {
+         if(proceso.comprobar(idbebida, idproceso)){
+          
+          gasificado.setFila(mezclado.getFila());
+
+          int fila= gasificado.getFila();
+          float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+          cantidadMP = cantidadMP + mezclado.getCantidadPT();                      
+          int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
+           
+          for (int i=0;i<Horas;i++){
+          fila = fila+1;
+          columna = idproceso;
+          nombre = proceso.getBebida(idbebida);
+         añadirTabla(fila-1,idproceso,nombre);
+          
+          }         
+          gasificado.setFila(fila);
+          gasificado.setColumna(columna);
+          gasificado.setNombre(nombre);
+          gasificado.setCantidadPT(cantidadMP);
+         } 
+    }      
+ 
+      private void embotellar(int idbebida, int idproceso, float cantidad) {
+         if(proceso.comprobar(idbebida, idproceso)){
+          if(idbebida>5){
+          embotellado.setFila(gasificado.getFila());
+          }else{
+          embotellado.setFila(filtrado.getFila());
+          }
+          
+
+          int fila= embotellado.getFila();
+          float cantidadMP = cantidad;
+                       
+          int Horas = proceso.getHoras(idbebida,cantidad,idproceso);
+           
+          for (int i=0;i<Horas;i++){
+          fila = fila+1;
+          columna = idproceso;
+          nombre = proceso.getBebida(idbebida);
+         añadirTabla(fila-1,idproceso,nombre);
+          
+          }         
+          embotellado.setFila(fila);
+          embotellado.setColumna(columna);
+          embotellado.setNombre(nombre);
+          embotellado.setCantidadPT(cantidadMP);
+         } 
+    } 
+
+      
     private void añadirTabla(int fila, int columna, String nombre) {
             
             tabla = tablaPP.getjTable1();
@@ -149,6 +285,8 @@ public class ControlPlanP {
 
     }
 
+ 
+    
     
     
     }

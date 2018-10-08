@@ -21,6 +21,7 @@ public class Proceso {
    private final Connection conexion;
    private String Nombre;
    private float duracionP;
+   
 
     public Proceso() {
         this.conexionDB = new ConexionDB();
@@ -117,7 +118,9 @@ public class Proceso {
            PreparedStatement ps = conexion.prepareStatement(consulta);
            ResultSet rs = ps.executeQuery();
            while(rs.next()){
-           cantidadT = cantidadT + rs.getFloat(4);
+               if(rs.getInt(3)!= 14){
+               cantidadT = cantidadT + rs.getFloat(4);
+               }          
            }
            cantidadT = cantidadT*cantidad;
             System.out.println(cantidadT);
