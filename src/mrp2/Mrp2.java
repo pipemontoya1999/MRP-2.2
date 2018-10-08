@@ -52,8 +52,9 @@ public class Mrp2 {
                 
        jButton.addActionListener(new ActionListener() { 
         public void actionPerformed(ActionEvent e) {
+            controlPP = null;
             controlPP = new ControlPlanP(tablaPP,ordenF.getIdBebidas(),ordenF.getBeCantidad());
-           
+            controlPP.iniciar();
       
       } 
        } );

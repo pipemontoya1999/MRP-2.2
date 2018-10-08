@@ -57,8 +57,9 @@ public class ControlPlanP {
         this.idBebidas = idBebidas;
         this.beCantidad=beCantidad;
         this.proceso=new Proceso();
+        tabla = tablaPP.getjTable1();
+        limpiarTabla();
         
-        iniciar();
     }
     
     public void iniciar(){
@@ -67,8 +68,8 @@ public class ControlPlanP {
             for(int i=0;i<idBebidas.size();i++){
             int bebida = idBebidas.get(i);
             float cantidad = beCantidad.get(i); 
-          
-            triturar(bebida,1,cantidad);          
+            
+           triturar(bebida,1,cantidad);          
            macerar(bebida,2,cantidad);
            aclarar(bebida,3,cantidad);
            fermentar(bebida,4,cantidad);
@@ -88,7 +89,7 @@ public class ControlPlanP {
 
 
     private void triturar(int idbebida, int idproceso, float cantidad) {
-        if(proceso.comprobar(idbebida, idproceso)){ // comprueba si la bebida pertenece al proceso     
+        if(proceso.comprobar(idbebida, idproceso)&& cantidad>0){ // comprueba si la bebida pertenece al proceso     
           int fila= triturado.getFila();
           float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
           
@@ -100,16 +101,18 @@ public class ControlPlanP {
           añadirTabla(fila-1,1,nombre);
           }
           filaIn = fila;
+          
           triturado.setFila(fila);
           triturado.setColumna(columna);
           triturado.setNombre(nombre);
+         
           triturado.setCantidadPT(cantidadMP);
           
         } else {}
     }
 
     private void macerar(int idbebida, int idproceso, float cantidad) {
-        if(proceso.comprobar(idbebida, idproceso)){ // comprueba si la bebida pertenece al proceso     
+        if(proceso.comprobar(idbebida, idproceso)&& cantidad>0){ // comprueba si la bebida pertenece al proceso     
              if(idbebida == 1){    
           macerado.setFila(triturado.getFila());
              }
@@ -135,7 +138,7 @@ public class ControlPlanP {
     
     
         private void aclarar(int idbebida, int idproceso, float cantidad) {
-        if(proceso.comprobar(idbebida, idproceso)){ // comprueba si la bebida pertenece al proceso     
+        if(proceso.comprobar(idbebida, idproceso)&& cantidad>0){ // comprueba si la bebida pertenece al proceso     
              if(idbebida == 1){    
           aclarado.setFila(macerado.getFila());
              }
@@ -158,7 +161,7 @@ public class ControlPlanP {
     }
     
         private void fermentar(int idbebida, int idproceso, float cantidad) {
-            if(proceso.comprobar(idbebida, idproceso)){
+            if(proceso.comprobar(idbebida, idproceso)&& cantidad>0){
                 float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);                
                 cantidadMP = aclarado.getCantidadPT() + cantidadMP;            
                 fermentado.setCantidadPT(cantidadMP);           
@@ -167,7 +170,7 @@ public class ControlPlanP {
     }
         
         private void madurar(int idbebida, int idproceso, float cantidad) {
-           if(proceso.comprobar(idbebida, idproceso)){
+           if(proceso.comprobar(idbebida, idproceso)&& cantidad>0){
                float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);                
                 cantidadMP = fermentado.getCantidadPT() + cantidadMP;            
             maduracion.setCantidadPT(cantidadMP);
@@ -198,7 +201,7 @@ public class ControlPlanP {
     }
 
       private void mezclar(int idbebida, int idproceso, float cantidad) {
-         if(proceso.comprobar(idbebida, idproceso)){
+         if(proceso.comprobar(idbebida, idproceso)&& cantidad>0){
          if(idbebida == 6){    
           mezclado.setFila(filtrado.getFila());
              }
@@ -226,7 +229,7 @@ public class ControlPlanP {
     }
 
       private void gasificar(int idbebida, int idproceso, float cantidad) {
-         if(proceso.comprobar(idbebida, idproceso)){
+         if(proceso.comprobar(idbebida, idproceso)&& cantidad>0){
           
           gasificado.setFila(mezclado.getFila());
 
@@ -250,7 +253,7 @@ public class ControlPlanP {
     }      
  
       private void embotellar(int idbebida, int idproceso, float cantidad) {
-         if(proceso.comprobar(idbebida, idproceso)){
+         if(proceso.comprobar(idbebida, idproceso)&& cantidad>0){
           if(idbebida>5){
           embotellado.setFila(gasificado.getFila());
           }else{
@@ -274,15 +277,25 @@ public class ControlPlanP {
           embotellado.setColumna(columna);
           embotellado.setNombre(nombre);
           embotellado.setCantidadPT(cantidadMP);
+          
          } 
     } 
 
       
-    private void añadirTabla(int fila, int columna, String nombre) {
-            
-            tabla = tablaPP.getjTable1();
-            tabla.setValueAt(nombre, fila, columna);
+    private void añadirTabla(int fila, int columna, String nombre) {            
 
+            tabla.setValueAt(nombre, fila, columna);
+    }
+    
+        private void limpiarTabla() {            
+           int a = tabla.getRowCount();
+           System.out.println(a);
+           for(int l=1;l<10;l++){
+            for(int i=0;i<a;i++){
+            tabla.setValueAt("", i, l);
+            }
+           }
+            
     }
 
  
