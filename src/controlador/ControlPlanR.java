@@ -17,7 +17,11 @@ import Proceso.Triturado;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import modelo.Proceso;
+import modelo.ProcesoR;
+import visual.Costos;
 import visual.TablaPlanP;
 import visual.TablaPlanR;
 
@@ -31,14 +35,23 @@ public class ControlPlanR {
     private ArrayList<Integer> idBebidas ;
     private ArrayList<Float> beCantidad ;
     
-    private Proceso proceso;
+    private ProcesoR proceso;
     private float costoAcumulado = 0;
     private int contador=1;
     private int columna=1;
     private int filaIn = 0;
     private String nombre = "";
     
+    //variables para ir guardando los costos
+
+    private float costoMP=0;
+    private float costoMantenimiento=0;
+    private float costoRH=0;
     
+    private float costoMPt;
+    private float costoMantenimientot;
+    private float costoRHt;
+  
     // creacion de los procesos para guardar la posicion en la tabla
     private Embotellado embotellado = new Embotellado();
     private Gasificado gasificado = new Gasificado();
@@ -50,15 +63,26 @@ public class ControlPlanR {
     private Macerado macerado = new Macerado();
     private Triturado triturado = new Triturado();
     
-
+    private Costos costos = new Costos();
+    private JTable tablaCostos = new javax.swing.JTable(); 
+   private DefaultTableModel model;
+   private JTextField jtotalP;
+   private JTextField jtotalR;
+   private JTextField jtotalC;
     
     //constructor
-    public ControlPlanR(TablaPlanR tablaPP, ArrayList<Integer> idBebidas, ArrayList<Float> beCantidad) {
+    public ControlPlanR(TablaPlanR tablaPP, ArrayList<Integer> idBebidas, ArrayList<Float> beCantidad, Costos costos) {
         this.tablaPP = tablaPP;
         this.idBebidas = idBebidas;
         this.beCantidad=beCantidad;
-        this.proceso=new Proceso();
+        this.proceso=new ProcesoR();
+        this.costos = costos;
+        jtotalP = costos.getJtotalP();
+        jtotalR = costos.getJtotalR();
+        jtotalC = costos.getJdiferencia();
         tabla = tablaPP.getjTable1();
+        tablaCostos = costos.getTcostoR();
+        model = (DefaultTableModel) tablaCostos.getModel();
         limpiarTabla();
         
     }
@@ -81,6 +105,11 @@ public class ControlPlanR {
            embotellar(bebida,9,cantidad);
            contador++;
             }
+          
+          limpiarTabla(tablaCostos.getRowCount(),model);
+          rellenarTablaC(model);
+          ponerTotalP(jtotalR,tablaCostos);
+          System.out.println(costoRH);
 //triturar(1,1,250);
 //macerar(1,2,6);
 //aclarar(1,3,6);
@@ -93,9 +122,17 @@ public class ControlPlanR {
     private void triturar(int idbebida, int idproceso, float cantidad) {
         if(proceso.comprobar(idbebida, idproceso)&& cantidad>0){ // comprueba si la bebida pertenece al proceso     
           int fila= triturado.getFila();
-          float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+          float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso); 
           
+          costoMPt = proceso.getCostoMP();//costo materia prima        
+          ponerCostoMP(costoMPt);//se agrega al costo general
+          cantidadMP = cantidadMP + triturado.getCantidadPT(); 
           int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
+          
+          costoMantenimientot=proceso.getCostoMan(Horas,idproceso);//costo mantenimiento
+          ponerCostoMan(costoMantenimientot);// se agrega al costo general
+          costoRHt=proceso.getCostoRH(Horas,idproceso);//costo de materia prima
+          ponerCostoRH(costoRHt);// se agrega al costo general
           for (int i=0;i<Horas;i++){
           fila = fila+1;
           columna = idproceso;
@@ -120,8 +157,13 @@ public class ControlPlanR {
              }
           int fila= macerado.getFila();
           float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
-          cantidadMP = cantidadMP + triturado.getCantidadPT();         
+          costoMPt = proceso.getCostoMP();//costo materia prima        
+          ponerCostoMP(costoMPt);//se agrega al costo general
           int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
+          costoMantenimientot=proceso.getCostoMan(Horas,idproceso);//costo mantenimiento
+          ponerCostoMan(costoMantenimientot);// se agrega al costo general
+          costoRHt=proceso.getCostoRH(Horas,idproceso);//costo de materia prima
+          ponerCostoRH(costoRHt);// se agrega al costo general
           
           for (int i=0;i<Horas;i++){
           fila = fila+1;
@@ -146,8 +188,14 @@ public class ControlPlanR {
              }
           int fila= aclarado.getFila();
           float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
-          cantidadMP = cantidadMP + macerado.getCantidadPT();          
+          cantidadMP = cantidadMP + macerado.getCantidadPT();
+          costoMPt = proceso.getCostoMP();//costo materia prima        
+          ponerCostoMP(costoMPt);//se agrega al costo general
           int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
+                    costoMantenimientot=proceso.getCostoMan(Horas,idproceso);//costo mantenimiento
+          ponerCostoMan(costoMantenimientot);// se agrega al costo general
+          costoRHt=proceso.getCostoRH(Horas,idproceso);//costo de materia prima
+          ponerCostoRH(costoRHt);// se agrega al costo general
           for (int i=0;i<Horas;i++){
           fila = fila+1;
           columna = idproceso;
@@ -164,7 +212,9 @@ public class ControlPlanR {
     
         private void fermentar(int idbebida, int idproceso, float cantidad) {
             if(proceso.comprobar(idbebida, idproceso)&& cantidad>0){
-                float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);                
+                float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+                 costoMPt = proceso.getCostoMP();//costo materia prima        
+                 ponerCostoMP(costoMPt);//se agrega al costo general
                 cantidadMP = aclarado.getCantidadPT() + cantidadMP;            
                 fermentado.setCantidadPT(cantidadMP);           
             }
@@ -173,7 +223,9 @@ public class ControlPlanR {
         
         private void madurar(int idbebida, int idproceso, float cantidad) {
            if(proceso.comprobar(idbebida, idproceso)&& cantidad>0){
-               float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);                
+               float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+                costoMPt = proceso.getCostoMP();//costo materia prima        
+          ponerCostoMP(costoMPt);//se agrega al costo general
                 cantidadMP = fermentado.getCantidadPT() + cantidadMP;            
             maduracion.setCantidadPT(cantidadMP);
            }
@@ -185,8 +237,15 @@ public class ControlPlanR {
              }
           int fila= filtrado.getFila();
           float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+          costoMPt = proceso.getCostoMP();//costo materia prima        
+          ponerCostoMP(costoMPt);//se agrega al costo general
           cantidadMP = cantidadMP + maduracion.getCantidadPT();         
           int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
+          
+          costoMantenimientot=proceso.getCostoMan(Horas,idproceso);//costo mantenimiento
+          ponerCostoMan(costoMantenimientot);// se agrega al costo general
+          costoRHt=proceso.getCostoRH(Horas,idproceso);//costo de materia prima
+          ponerCostoRH(costoRHt);// se agrega al costo general
      
           for (int i=0;i<Horas;i++){
           fila = fila+1;
@@ -210,12 +269,17 @@ public class ControlPlanR {
          if(idbebida == 7){mezclado.setFila(0);}
           int fila= mezclado.getFila();
           float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+           costoMPt = proceso.getCostoMP();//costo materia prima        
+          ponerCostoMP(costoMPt);//se agrega al costo general
           if(idbebida == 6){
           cantidadMP = cantidadMP + filtrado.getCantidadPT();          
           }                            
           System.out.println(cantidad+" "+nombre+" tiene "+cantidadMP);
           int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
-           
+                     costoMantenimientot=proceso.getCostoMan(Horas,idproceso);//costo mantenimiento
+          ponerCostoMan(costoMantenimientot);// se agrega al costo general
+          costoRHt=proceso.getCostoRH(Horas,idproceso);//costo de materia prima
+          ponerCostoRH(costoRHt);// se agrega al costo general
           for (int i=0;i<Horas;i++){
           fila = fila+1;
           columna = idproceso;
@@ -237,9 +301,14 @@ public class ControlPlanR {
 
           int fila= gasificado.getFila();
           float cantidadMP = proceso.getCantidadMP(idbebida, cantidad, idproceso);
+           costoMPt = proceso.getCostoMP();//costo materia prima        
+          ponerCostoMP(costoMPt);//se agrega al costo general
           cantidadMP = cantidadMP + mezclado.getCantidadPT();                      
           int Horas = proceso.getHoras(idbebida,cantidadMP,idproceso);
-           
+                     costoMantenimientot=proceso.getCostoMan(Horas,idproceso);//costo mantenimiento
+          ponerCostoMan(costoMantenimientot);// se agrega al costo general
+          costoRHt=proceso.getCostoRH(Horas,idproceso);//costo de materia prima
+          ponerCostoRH(costoRHt);// se agrega al costo general
           for (int i=0;i<Horas;i++){
           fila = fila+1;
           columna = idproceso;
@@ -265,9 +334,14 @@ public class ControlPlanR {
 
           int fila= embotellado.getFila();
           float cantidadMP = cantidad;
+          costoMPt = 15*cantidad;//costo materia prima        
+          ponerCostoMP(costoMPt);//se agrega al costo general
                        
           int Horas = proceso.getHoras(idbebida,cantidad,idproceso);
-           
+                     costoMantenimientot=proceso.getCostoMan(Horas,idproceso);//costo mantenimiento
+          ponerCostoMan(costoMantenimientot);// se agrega al costo general
+          costoRHt=proceso.getCostoRH(Horas,idproceso);//costo de materia prima
+          ponerCostoRH(costoRHt);// se agrega al costo general
           for (int i=0;i<Horas;i++){
           fila = fila+1;
           columna = idproceso;
@@ -298,6 +372,49 @@ public class ControlPlanR {
             }
            }
             
+    }
+
+    private void ponerCostoMP(float costoMPt1) {
+        costoMP = costoMP + costoMPt1; 
+    }
+
+    private void ponerCostoMan(float costoMantenimientot) {
+        costoMantenimiento= costoMantenimiento+ costoMantenimientot;
+    }
+
+    private void ponerCostoRH(float costoRHt) {
+        costoRH=costoRH+costoRHt;
+    }
+
+    private void rellenarTablaC(DefaultTableModel tablaCostos) {
+        model.addRow(new Object[]{costoRH, costoMP,costoMantenimiento});
+    }
+    
+    public void limpiarTabla(int filas, DefaultTableModel modelo){
+        try {        
+            for (int i = 0;filas>i; i++) {
+                modelo.removeRow(0);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al limpiar la tabla.");
+        }
+    }
+
+    private void ponerTotalP(JTextField jtotalR, JTable tablaCostos) {
+        float costrh = (float) tablaCostos.getValueAt(0, 0);
+        float costmp = (float) tablaCostos.getValueAt(0, 1);
+        float costma = (float) tablaCostos.getValueAt(0, 2);
+        
+        float total = costrh+costmp+costma;
+        
+        jtotalR.setText(Float.toString(total));
+        float a = Float.parseFloat(jtotalP.getText());
+        float TotalC = total-a;
+        
+        jtotalC.setText(Float.toString(TotalC));
+        
+        
+        
     }
 
  

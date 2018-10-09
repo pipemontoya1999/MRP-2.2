@@ -22,6 +22,7 @@ public class Proceso {
    private final Connection conexion;
    private String Nombre;
    private float duracionP;
+   private float costoMP = 0;
 
    
 
@@ -114,17 +115,18 @@ public class Proceso {
     
     public float getCantidadMP(int idB,float cantidad, int idP){
             float cantidadT = 0;
-        String consulta = "select re.idBebida, mp.idProceso, re.idInvMP, cantidad from receta re, MateriaPrima mp "
+        String consulta = "select re.idBebida, mp.idProceso, re.idInvMP, cantidad, mp.costo from receta re, MateriaPrima mp "
                 + "where re.idInvMP = mp.idInvMP and idBebida="+idB+" and idProceso ="+idP+" group by re.idInvMP";
        try {
            PreparedStatement ps = conexion.prepareStatement(consulta);
            ResultSet rs = ps.executeQuery();
 
            while(rs.next()){
-               int identifier= rs.getInt(3)-1;
-
+               
+               costoMP = costoMP+(rs.getFloat(5)*rs.getFloat(4));
                if(rs.getInt(3)!= 14){
-               cantidadT = cantidadT + rs.getFloat(4);              
+               cantidadT = cantidadT + rs.getFloat(4);
+               
                }
                 
            }
@@ -137,19 +139,44 @@ public class Proceso {
     }
     
     
-    public float getCostoMP(int idInv){
-    String consulta= "select idInvMP, nombre, costo from materiaprima where idInvMP ="+idInv;
-         float costo = 0;
-     try {
-           PreparedStatement ps = conexion.prepareStatement(consulta);
-           ResultSet rs = ps.executeQuery();
-           while(rs.next()){
-           costo = rs.getFloat(3);
-           }
+    public float getCostoMP(){
+    
+    return costoMP;
+    }
+
+    public float getCostoMan(int Horas, int idproceso) {
+        String consulta = "select idMantenimiento, Costo from Mantenimiento where idProceso="+idproceso;
+       float costo = 0;
+        try {
+          
+          PreparedStatement ps= conexion.prepareStatement(consulta);
+          ResultSet rs = ps.executeQuery();
+          while(rs.next()){
+         costo = rs.getFloat(2)* Horas;
+          }
        } catch (SQLException ex) {
            Logger.getLogger(Proceso.class.getName()).log(Level.SEVERE, null, ex);
        }
-    return costo;
+       
+      return costo; 
+    }
+
+ 
+
+    public float getCostoRH(int Horas, int idproceso) {
+       String consulta = "select idProceso,idRecursoHumano,nombre, costo from recursohumano where idProceso="+idproceso;
+      float costo=0;
+       try {         
+          PreparedStatement ps= conexion.prepareStatement(consulta);
+          ResultSet rs = ps.executeQuery();
+          while(rs.next()){
+          costo = rs.getFloat(4)* Horas;
+          }
+       } catch (SQLException ex) {
+           Logger.getLogger(Proceso.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       
+      return costo; 
     }
     
     

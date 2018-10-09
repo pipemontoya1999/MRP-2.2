@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.Bebidas;
+import visual.Costos;
 import visual.Eventos;
 import visual.ModificarReceta;
 import visual.PanelPrincipal;
@@ -48,13 +49,14 @@ public class Mrp2 {
         orden.insertarOrden();
         
         PanelPrincipal panel = new PanelPrincipal();
+        Costos costos = new Costos();
         TablaPlanP tablaPP = new TablaPlanP();
         TablaOrden torden = new TablaOrden();
         TablaOrdenR tordenr = new TablaOrdenR();
         TablaPlanR tablaPR = new TablaPlanR();
         Eventos eventos = new Eventos();
         ModificarReceta modr = new ModificarReceta();
-        ControladorPanel controladorPanel = new ControladorPanel(panel,tablaPP,torden,tordenr,tablaPR);
+        ControladorPanel controladorPanel = new ControladorPanel(panel,tablaPP,torden,tordenr,tablaPR,costos);
         controladorPanel.inicializarPestanas();
         ControladorOrden ordenF = new ControladorOrden (torden);
         ControladorOrdenR ordenR = new ControladorOrdenR (tordenr);
@@ -67,7 +69,7 @@ public class Mrp2 {
        jButton1.addActionListener(new ActionListener() { 
         public void actionPerformed(ActionEvent e) {
             controlPP = null;
-            controlPP = new ControlPlanP(tablaPP,ordenF.getIdBebidas(),ordenF.getBeCantidad());
+            controlPP = new ControlPlanP(tablaPP,ordenF.getIdBebidas(),ordenF.getBeCantidad(),costos);
             controlPP.iniciar();     
       } 
        } );
@@ -88,7 +90,7 @@ public class Mrp2 {
         public void actionPerformed(ActionEvent e) {
             System.out.println("seeeee papuuu");
              controlPR = null;
-         controlPR = new ControlPlanR(tablaPR,ordenR.getIdBebidas(),ordenR.getBeCantidad());
+          controlPR = new ControlPlanR(tablaPR,ordenR.getIdBebidas(),ordenR.getBeCantidad(),costos);
           controlPR.iniciar();
                              }        } );
             

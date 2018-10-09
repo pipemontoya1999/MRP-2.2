@@ -96,6 +96,16 @@ foreign key (idBebida) references Bebida(idBebida) ON UPDATE CASCADE,
 foreign key (idInvMP) references MateriaPrima(idInvMP) ON UPDATE CASCADE
 )ENGINE=INNODB;
 
+
+create table RecetaModificada(
+idBebida int ,
+idInvMP int  ,
+cantidad float(10) null,
+primary key(idBebida, idInvMP),
+foreign key (idBebida) references Bebida(idBebida) ON UPDATE CASCADE,
+foreign key (idInvMP) references MateriaPrima(idInvMP) ON UPDATE CASCADE
+)ENGINE=INNODB;
+
 create table RecursoHumano(
     idRecursoHumano int primary key not null,
     idProceso int,

@@ -117,8 +117,22 @@ values (1,1,0.084), (1,2,0.008),(1,3,0.0008),(1,4,0.002),(1,5,0.000320),(1,6,0.0
        (8,11,0.000004), (8,12,0.000003),(8,13,0.022),(8,25,0.2),(8,24,0.005),(8,16,0.010),(8,23,1),
        (9,11,0.000004), (9,12,0.000003),(9,13,0.022),(9,25,0.2),(9,18,0.005),(9,16,0.010),(9,23,1),
        (10,11,0.000004), (10,12,0.000003),(10,13,0.022),(10,25,0.2),(10,19,0.005),(10,16,0.010),(10,23,1);
-   select be.nombre, mp.nombre, re.cantidad from receta re, materiaprima mp, bebida be
-   where re.idInvMP = mp.idInvMP and re.idBebida = be.idBebida and be.nombre='Gaseosa tipo refajo';    
+       
+insert into RecetaModificada(idBebida,idInvMP,cantidad)
+values (1,1,0.084), (1,2,0.008),(1,3,0.0008),(1,4,0.002),(1,5,0.000320),(1,6,0.0001),(1,7,0.276),(1,14,0.326),(1,23,1),
+       (2,1,0.084), (2,2,0.008),(2,3,0.0008),(2,4,0.002),(2,5,0.000240),(2,6,0.0001),(2,7,0.276),(2,14,0.326),(2,23,1),
+       (3,1,0.084), (3,2,0.008),(3,3,0.0008),(3,4,0.002),(3,5,0.000120),(3,6,0.0001),(3,7,0.276),(3,14,0.326),(3,23,1),
+       (4,1,0.084), (4,8,0.002),(4,9,0.00024),(4,6,0.0001),(4,7,0.276),(4,14,0.326),(4,23,1),
+       (5,1,0.084), (5,2,0.008),(5,4,0.002),(5,10,0.000320),(5,6,0.0001),(5,7,0.276),(5,14,0.326),(5,23,1),
+       (6,1,0.042), (6,2,0.004),(6,3,0.0004),(6,4,0.001),(6,5,0.000160),(6,6,0.00005),(6,7,0.238),(6,14,0.163),
+	   (6,11,0.000002), (6,12,0.0000024),(6,13,0.008),(6,17,0.005),(6,16,0.005),(6,23,1),
+       (7,11,0.000004), (7,12,0.000003),(7,13,0.022),(7,25,0.2),(7,15,0.005),(7,16,0.010),(7,23,1),
+       (8,11,0.000004), (8,12,0.000003),(8,13,0.022),(8,25,0.2),(8,24,0.005),(8,16,0.010),(8,23,1),
+       (9,11,0.000004), (9,12,0.000003),(9,13,0.022),(9,25,0.2),(9,18,0.005),(9,16,0.010),(9,23,1),
+       (10,11,0.000004), (10,12,0.000003),(10,13,0.022),(10,25,0.2),(10,19,0.005),(10,16,0.010),(10,23,1);
+       
+   select be.nombre, mp.nombre, re.cantidad from recetaModificada re, materiaprima mp, bebida be
+   where re.idInvMP = mp.idInvMP and re.idBebida = be.idBebida and be.nombre='Cerveza tipo Lagger';    
 insert into ProcesoBebida(idProceso,idBebida)
 values (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(9,1),
 (1,2),(2,2),(3,2),(4,2),(5,2),(6,2),(9,2),
@@ -145,11 +159,32 @@ values(6,5,"Filtro de tierras","",300,"Lt/H",1,35,"pesos/H"),
 (3,9,"Tamizadora","",300,"Lt/H",1,35,"pesos/H"),
 (5,10,"Tanque de acondicionamiento","",300,"Lt",1,31,"pesos/H");
 
-
+select idMantenimiento, Costo from Mantenimiento where idProceso=1;
 insert into InvProdProc(idProdProc,idProceso,idBebida,nombre,cantidad)
 values (1,2,1,"maltas trituradas",0.0928), (2,2,2,"maltas trituradas",0.0928),(3,2,3,"maltas trituradas",0.0928),
 (4,2,4,"malta pilsen triturada",0.084),(5,2,5,"malta pilsen y munich trituradas",0.084),
 (6,2,6,"maltas trituradas",0.0464),(7,4,1,"producto aclarado",0.37);
+
+
+insert into recursohumano(idRecursoHumano,nombre,documento,idProceso,especialidad,cantidad,costo,prefijo)
+values(1,"Hector Delgado","1598759463",1,"Operario molino",1,3255, "pesos"),(2,"Maria Magdalena","456732156",2,"Operario hervidor",1,3255, "pesos"),(3,"Enrique Iglesias","4598354796",3,"Operario filtro",1,3255, "pesos"),
+(4,"Enrique Tuerto","4632897235",4,"Operario fermentacion",1,3255, "pesos"),(5,"isabel Huertaz","446798234",5,"Operario embotellado",1,3255, "pesos"),(6,"Luis Melano","5879345613",6,"Operario mezclado",1,3255, "pesos"),
+(7,"Louis Button","4561897357",7,"Operario maduracion",1,3255, "pesos"),(8,"Holy Molly","7963254935",8,"Operario gasificacion",1,3255, "pesos"),(9,"Mary Jane","5463215987",9,"operario embotellado",1,3255, "pesos");
+
+
+select idProceso,idRecursoHumano,nombre, costo from recursohumano where idProceso=1;
+
+create table RecursoHumano(
+    idRecursoHumano int primary key not null,
+    idProceso int,
+    documento varchar(30),
+    nombre varchar(70),
+    especialidad varchar(50),
+    cantidad int, 
+    costo float(10),    
+    prefijo varchar(10),
+    foreign key (idProceso) references proceso(idProceso) ON UPDATE CASCADE ON DELETE SET NULL
+)ENGINE=INNODB;
 
        
 select idMantenimiento, capacidad, prefijo from Mantenimiento where idProceso = 6
