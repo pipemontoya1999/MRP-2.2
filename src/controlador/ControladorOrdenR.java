@@ -20,28 +20,30 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.ConexionDB;
 import visual.TablaOrden;
+import visual.TablaOrdenR;
 import visual.TablaPlanP;
+import visual.TablaPlanR;
 
 /**
  *
  * @author Felipe Montoya
  */
-public class ControladorOrden  {
+public class ControladorOrdenR  {
     JComboBox ordenesBox = new javax.swing.JComboBox<>();
     JButton jButton = new javax.swing.JButton();
     JTable tabla = new javax.swing.JTable();
-     private TablaOrden torden = new TablaOrden();
+     private TablaOrdenR torden = new TablaOrdenR();
      private DefaultTableModel model;
     OrdenProduccion ordenProduccion = new OrdenProduccion();
     ControlPlanP control;
     private final ConexionDB conexionDB;
    private Connection conexion;
-   public TablaPlanP tablaPP;
+   public TablaPlanR tablaPP;
    private ArrayList<Integer> idBebidas ;
    private ArrayList<Float> beCantidad ;
 
 
-    public ControladorOrden(TablaOrden torden) {
+    public ControladorOrdenR(TablaOrdenR torden) {
         this.torden=torden;
         this.conexionDB = new ConexionDB();
         this.conexion= conexionDB.getConnection(); 
@@ -66,10 +68,19 @@ public class ControladorOrden  {
        llenarTabla(s);
             }
         };
-                             
-       ordenesBox.addActionListener(cbActionListener);                    
+       
+       
+         
+       
+       ordenesBox.addActionListener(cbActionListener);
+       
+       
+       
+
+
       ArrayList<String> fechasOP = ordenProduccion.getFechasOP();
-           
+      
+      
       for(int i=0; i<fechasOP.size(); i++) {    
      ordenesBox.addItem(fechasOP.get(i));
     
@@ -104,7 +115,7 @@ public class ControladorOrden  {
             
            
         } catch (SQLException ex) {
-            Logger.getLogger(ControladorOrden.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControladorOrdenR.class.getName()).log(Level.SEVERE, null, ex);
         }
             
 

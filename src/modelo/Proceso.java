@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,6 +22,7 @@ public class Proceso {
    private final Connection conexion;
    private String Nombre;
    private float duracionP;
+
    
 
     public Proceso() {
@@ -117,10 +119,14 @@ public class Proceso {
        try {
            PreparedStatement ps = conexion.prepareStatement(consulta);
            ResultSet rs = ps.executeQuery();
+
            while(rs.next()){
+               int identifier= rs.getInt(3)-1;
+
                if(rs.getInt(3)!= 14){
-               cantidadT = cantidadT + rs.getFloat(4);
-               }          
+               cantidadT = cantidadT + rs.getFloat(4);              
+               }
+                
            }
            cantidadT = cantidadT*cantidad;
             System.out.println(cantidadT);
@@ -129,6 +135,26 @@ public class Proceso {
        }
        return cantidadT;
     }
+    
+    
+    public float getCostoMP(int idInv){
+    String consulta= "select idInvMP, nombre, costo from materiaprima where idInvMP ="+idInv;
+         float costo = 0;
+     try {
+           PreparedStatement ps = conexion.prepareStatement(consulta);
+           ResultSet rs = ps.executeQuery();
+           while(rs.next()){
+           costo = rs.getFloat(3);
+           }
+       } catch (SQLException ex) {
+           Logger.getLogger(Proceso.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    return costo;
+    }
+    
+    
+    
+    
 
 
 }

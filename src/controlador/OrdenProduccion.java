@@ -30,6 +30,8 @@ public class OrdenProduccion {
     private  Date fecha2;
     private int var;
     int lol = 2;
+    
+    
     public OrdenProduccion() {
         this.conexionDB = new ConexionDB();
         this.conexion= conexionDB.getConnection();  

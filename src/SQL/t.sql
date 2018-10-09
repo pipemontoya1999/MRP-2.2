@@ -41,4 +41,6 @@ select op.idOrdenProduccion, be.nombre, ob.cantidad, op.fecha from OrdenProducci
 where be.idBebida = ob.idBebida and op.idOrdenProduccion = ob.idOrdenProduccion and op.fecha='2019-01-20';
 
 
-select re.idBebida, mp.idProceso, re.idInvMP, cantidad from receta re, MateriaPrima mp where re.idInvMP = mp.idInvMP and idBebida=1 and idProceso = 1 group by re.idInvMP ;
+select re.idBebida, mp.idProceso, re.idInvMP, cantidad, re.costo from receta re, MateriaPrima mp where re.idInvMP = mp.idInvMP and idBebida=1 and idProceso = 1 group by re.idInvMP ;
+
+select count(idBebida), idProceso from ProcesoBebida where idBebida =9 and idProceso=7;

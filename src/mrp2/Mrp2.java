@@ -6,7 +6,10 @@
 package mrp2;
 
 import controlador.ControlPlanP;
+import controlador.ControlPlanR;
+import controlador.ControladorModificar;
 import controlador.ControladorOrden;
+import controlador.ControladorOrdenR;
 import controlador.ControladorPanel;
 import controlador.OrdenProduccion;
 import java.awt.event.ActionEvent;
@@ -15,9 +18,14 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import modelo.Bebidas;
+import visual.Eventos;
+import visual.ModificarReceta;
 import visual.PanelPrincipal;
 import visual.TablaOrden;
+import visual.TablaOrdenR;
 import visual.TablaPlanP;
+import visual.TablaPlanR;
 
 /**
  *
@@ -29,6 +37,8 @@ public class Mrp2 {
      * @param args the command line arguments
      */
     private static ControlPlanP controlPP;
+    private static ControlPlanR controlPR;
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         
@@ -40,21 +50,52 @@ public class Mrp2 {
         PanelPrincipal panel = new PanelPrincipal();
         TablaPlanP tablaPP = new TablaPlanP();
         TablaOrden torden = new TablaOrden();
-        
-        
-        ControladorPanel controladorPanel = new ControladorPanel(panel,tablaPP,torden);
+        TablaOrdenR tordenr = new TablaOrdenR();
+        TablaPlanR tablaPR = new TablaPlanR();
+        Eventos eventos = new Eventos();
+        ModificarReceta modr = new ModificarReceta();
+        ControladorPanel controladorPanel = new ControladorPanel(panel,tablaPP,torden,tordenr,tablaPR);
         controladorPanel.inicializarPestanas();
         ControladorOrden ordenF = new ControladorOrden (torden);
+        ControladorOrdenR ordenR = new ControladorOrdenR (tordenr);
         
+        JButton jButton1 = torden.getjButton1();
+        JButton jButton2 = tordenr.getjButton1();
         
-        JButton jButton = torden.getjButton1();
-        
+        Bebidas bebidas = new Bebidas();
                 
-       jButton.addActionListener(new ActionListener() { 
+       jButton1.addActionListener(new ActionListener() { 
         public void actionPerformed(ActionEvent e) {
             controlPP = null;
             controlPP = new ControlPlanP(tablaPP,ordenF.getIdBebidas(),ordenF.getBeCantidad());
-            controlPP.iniciar();
+            controlPP.iniciar();     
+      } 
+       } );
+       
+              jButton2.addActionListener(new ActionListener() { 
+        public void actionPerformed(ActionEvent e) {
+            eventos.setVisible(true);
+            JButton jButton = eventos.getjButton1();
+            
+        jButton.addActionListener(new ActionListener() { 
+        public void actionPerformed(ActionEvent e) {
+            ControladorModificar modificar = new ControladorModificar(modr,bebidas.getBebidas());
+            modr.setVisible(true);                  }        } );
+        
+        JButton jButton2 = eventos.getjButton2();
+
+                jButton2.addActionListener(new ActionListener() { 
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("seeeee papuuu");
+             controlPR = null;
+         controlPR = new ControlPlanR(tablaPR,ordenR.getIdBebidas(),ordenR.getBeCantidad());
+          controlPR.iniciar();
+                             }        } );
+            
+        // controlPR = null;
+         //   controlPR = new ControlPlanR(tablaPR,ordenF.getIdBebidas(),ordenF.getBeCantidad());
+        //   controlPR.iniciar();
+           
       
       } 
        } );

@@ -19,13 +19,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import modelo.Proceso;
 import visual.TablaPlanP;
+import visual.TablaPlanR;
 
 /**
  *
  * @author Felipe Montoya
  */
-public class ControlPlanP {
-    private TablaPlanP tablaPP = new TablaPlanP();
+public class ControlPlanR {
+    private TablaPlanR tablaPP = new TablaPlanR();
     private JTable tabla = new javax.swing.JTable();
     private ArrayList<Integer> idBebidas ;
     private ArrayList<Float> beCantidad ;
@@ -52,7 +53,7 @@ public class ControlPlanP {
 
     
     //constructor
-    public ControlPlanP(TablaPlanP tablaPP, ArrayList<Integer> idBebidas, ArrayList<Float> beCantidad) {
+    public ControlPlanR(TablaPlanR tablaPP, ArrayList<Integer> idBebidas, ArrayList<Float> beCantidad) {
         this.tablaPP = tablaPP;
         this.idBebidas = idBebidas;
         this.beCantidad=beCantidad;
