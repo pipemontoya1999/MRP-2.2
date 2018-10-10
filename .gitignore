@@ -1,3 +1,6 @@
 /nbproject/private/
 /build/
 src/modelo/ConexionDB.java
+src/modelo/ConexionDB.java
+/dist/
+src/modelo/ConexionDB.java
